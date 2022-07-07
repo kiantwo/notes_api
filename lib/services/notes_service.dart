@@ -30,17 +30,8 @@ class NoteService {
         .get(Uri.parse('$api/notes/$noteID'), headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
-        final jsonData = json.decode(data.body);
-        final note = Note(
-          noteID: jsonData['noteID'],
-          noteTitle: jsonData['noteTitle'],
-          noteContent: jsonData['noteContent'],
-          createDateTime: DateTime.parse(jsonData['createDateTime']),
-          latestEditDateTime: jsonData['latestEditDateTime'] != null
-              ? DateTime.parse(jsonData['latestEditDateTime'])
-              : null,
-        );
-        return APIResponse<Note>(data: note);
+        final jsonData = json.decode(data.body);;
+        return APIResponse<Note>(data: Note.fromJson(jsonData));
       }
     }).catchError((_) =>
             APIResponse<Note>(error: true, errorMessage: 'An error occurred.'));
