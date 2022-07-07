@@ -1,9 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:notes_api/services/notes_service.dart';
 
-class NoteModify extends StatelessWidget {
+import '../models/note.dart';
+
+class NoteModify extends StatefulWidget {
   const NoteModify({Key? key, this.noteID}) : super(key: key);
   final String? noteID;
-  bool get isEditing => noteID != null;
+
+  @override
+  State<NoteModify> createState() => _NoteModifyState();
+}
+
+class _NoteModifyState extends State<NoteModify> {
+  bool get isEditing => widget.noteID != null;
+
+  NoteService get notesService => GetIt.I<NoteService>();
+
+  String? errorMessage;
+  late Note note;
+
+  @override
+  void initState() {
+    notesService.getNote(widget.noteID!).then((response) {
+      if (response!.error) {
+        errorMessage = response.errorMessage ?? 'An error occurred.';
+      }
+      note = response.data!;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +53,9 @@ class NoteModify extends StatelessWidget {
               child: ElevatedButton(
                 child: const Text('Submit'),
                 onPressed: () {
-                  if(isEditing) {
+                  if (isEditing) {
                     // update note in api
-                  }
-                  else {
+                  } else {
                     // create not in api
                   }
                   Navigator.of(context).pop();
