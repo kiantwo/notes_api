@@ -77,6 +77,45 @@ class _NoteModifyState extends State<NoteModify> {
                       onPressed: () async {
                         if (isEditing) {
                           // update note in api
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          // create not in api
+                          final note = NoteManipulation(
+                            noteTitle: _titleController.text,
+                            noteContent: _contentController.text,
+                          );
+                          final result = await notesService.updateNote(
+                              widget.noteID!, note);
+
+                          setState(() {
+                            _isLoading = false;
+                          });
+
+                          const title = 'Done';
+                          final text = result.error
+                              ? (result.errorMessage ?? 'An error occurred.')
+                              : 'Your note was updated';
+
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: const Text(title),
+                              content: Text(text),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Ok'),
+                                ),
+                              ],
+                            ),
+                          ).then((data) {
+                            if (result.data!) {
+                              Navigator.of(context).pop();
+                            }
+                          });
                         } else {
                           setState(() {
                             _isLoading = true;

@@ -48,11 +48,13 @@ class _NoteListState extends State<NoteList> {
       appBar: AppBar(title: const Text('List of notes')),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
+          Navigator.of(context)
+              .push(
             MaterialPageRoute(
               builder: (_) => const NoteModify(),
             ),
-          ).then((_) {
+          )
+              .then((_) {
             _fetchNotes();
           });
         },
@@ -102,12 +104,16 @@ class _NoteListState extends State<NoteList> {
                   subtitle: Text(
                       'Last edited on ${formatDateTime(_apiResponse!.data![index].latestEditDateTime ?? _apiResponse!.data![index].createDateTime!)}'),
                   onTap: () {
-                    Navigator.of(context).push(
+                    Navigator.of(context)
+                        .push(
                       MaterialPageRoute(
                         builder: (_) => NoteModify(
                             noteID: _apiResponse!.data![index].noteID!),
                       ),
-                    );
+                    )
+                        .then((_) {
+                      _fetchNotes();
+                    });
                   },
                 ),
               );
