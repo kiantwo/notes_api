@@ -56,6 +56,13 @@ class NoteList extends StatelessWidget {
             ),
             subtitle: Text(
                 'Last edited on ${formatDateTime(notes[index].latestEditDateTime!)}'),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const NoteModify(),
+                ),
+              );
+            },
           );
         },
         itemCount: notes.length,
