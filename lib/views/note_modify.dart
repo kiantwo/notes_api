@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class NoteModify extends StatelessWidget {
-  const NoteModify({Key? key}) : super(key: key);
+  const NoteModify({Key? key, this.noteID}) : super(key: key);
+  final String? noteID;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Create note')),
+      appBar: AppBar(title: Text(noteID == null ? 'Create note' : 'Edit note')),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(

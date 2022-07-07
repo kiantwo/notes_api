@@ -59,7 +59,7 @@ class NoteList extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => const NoteModify(),
+                  builder: (_) => NoteModify(noteID: notes[index].noteID!),
                 ),
               );
             },
