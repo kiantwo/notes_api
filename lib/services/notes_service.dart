@@ -11,6 +11,7 @@ class NoteService {
   static const api = 'https://tq-notes-api-jkrgrdggbq-el.a.run.app';
   static const headers = {
     'apiKey': 'e7ec8231-b9fc-4d2e-9243-c5dc3adc1b44',
+    'Content-type': 'application/json',
   };
 
   Future<APIResponse<List<NoteForListing>>?> getNotesList() {
@@ -42,7 +43,8 @@ class NoteService {
 
   Future<APIResponse<bool>> createNote(NoteInsert item) {
     return http
-        .post(Uri.parse('$api/notes'), headers: headers, body: item.toJson())
+        .post(Uri.parse('$api/notes'),
+            headers: headers, body: json.encode(item.toJson()))
         .then((data) {
       if (data.statusCode == 201) {
         return APIResponse<bool>(data: true);
