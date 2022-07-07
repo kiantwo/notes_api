@@ -28,21 +28,24 @@ class _NoteModifyState extends State<NoteModify> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _isLoading = true;
-    });
 
-    notesService.getNote(widget.noteID!).then((response) {
+    if (isEditing) {
       setState(() {
-        _isLoading = false;
+        _isLoading = true;
       });
-      if (response!.error) {
-        errorMessage = response.errorMessage ?? 'An error occurred.';
-      }
-      note = response.data!;
-      _titleController.text = note.noteTitle!;
-      _contentController.text = note.noteContent!;
-    });
+
+      notesService.getNote(widget.noteID!).then((response) {
+        setState(() {
+          _isLoading = false;
+        });
+        if (response!.error) {
+          errorMessage = response.errorMessage ?? 'An error occurred.';
+        }
+        note = response.data!;
+        _titleController.text = note.noteTitle!;
+        _contentController.text = note.noteContent!;
+      });
+    }
   }
 
   @override
