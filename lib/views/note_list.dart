@@ -2,31 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:notes_api/views/note_delete.dart';
 import 'package:notes_api/views/note_modify.dart';
 
-import '../models/note_for_listing.dart';
-
 class NoteList extends StatelessWidget {
-  NoteList({Key? key}) : super(key: key);
-
-  final notes = [
-    NoteForListing(
-      noteID: "1",
-      createDateTime: DateTime.now(),
-      latestEditDateTime: DateTime.now(),
-      noteTitle: "Note 1",
-    ),
-    NoteForListing(
-      noteID: "2",
-      createDateTime: DateTime.now(),
-      latestEditDateTime: DateTime.now(),
-      noteTitle: "Note 2",
-    ),
-    NoteForListing(
-      noteID: "3",
-      createDateTime: DateTime.now(),
-      latestEditDateTime: DateTime.now(),
-      noteTitle: "Note 3",
-    ),
-  ];
+  const NoteList({Key? key}) : super(key: key);
 
   String formatDateTime(DateTime dateTime) {
     return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
