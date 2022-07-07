@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_api/views/note_delete.dart';
 import 'package:notes_api/views/note_modify.dart';
 
 import '../models/note_for_listing.dart';
@@ -53,7 +54,13 @@ class NoteList extends StatelessWidget {
             key: ValueKey(notes[index].noteID!),
             direction: DismissDirection.startToEnd,
             onDismissed: (direction) {},
-            confirmDismiss: (direction) {},
+            confirmDismiss: (direction) async {
+              final result = await showDialog(
+                context: context,
+                builder: (_) => const NoteDelete(),
+              );
+              return result;
+            },
             child: ListTile(
               title: Text(
                 notes[index].noteTitle!,
