@@ -36,4 +36,16 @@ class NoteService {
     }).catchError((_) =>
             APIResponse<Note>(error: true, errorMessage: 'An error occurred.'));
   }
+
+  Future<APIResponse<bool>> createNote() {
+    return http
+        .get(Uri.parse('$api/notes/'), headers: headers)
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);;
+        return APIResponse<Note>(data: Note.fromJson(jsonData));
+      }
+    }).catchError((_) =>
+        APIResponse<Note>(error: true, errorMessage: 'An error occurred.'));
+  }
 }
