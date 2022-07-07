@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:notes_api/models/note_insert.dart';
 import 'package:notes_api/services/notes_service.dart';
 
 import '../models/note.dart';
@@ -73,13 +74,38 @@ class _NoteModifyState extends State<NoteModify> {
                     height: 35,
                     child: ElevatedButton(
                       child: const Text('Submit'),
-                      onPressed: () {
+                      onPressed: () async {
                         if (isEditing) {
                           // update note in api
                         } else {
                           // create not in api
+                          final note = NoteInsert(
+                            noteTitle: _titleController.text,
+                            noteContent: _contentController.text,
+                          );
+                          final result = await notesService.createNote(note);
+
+                          const title = 'Done';
+                          final text = result.error
+                              ? (result.errorMessage ?? 'An error occurred.')
+                              : 'Your note was created';
+
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: const Text(title),
+                              content: Text(text),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Ok'),
+                                ),
+                              ],
+                            ),
+                          );
                         }
-                        Navigator.of(context).pop();
                       },
                     ),
                   )
