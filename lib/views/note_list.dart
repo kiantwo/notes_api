@@ -26,6 +26,10 @@ class NoteList extends StatelessWidget {
     ),
   ];
 
+  String formatDateTime(DateTime dateTime) {
+    return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +47,7 @@ class NoteList extends StatelessWidget {
               notes[index].noteTitle!,
               style: TextStyle(color: Theme.of(context).primaryColor),
             ),
-            subtitle: Text('Last edited on ${notes[index].latestEditDateTime!}'),
+            subtitle: Text('Last edited on ${formatDateTime(notes[index].latestEditDateTime!)}'),
           );
         },
         itemCount: notes.length,
