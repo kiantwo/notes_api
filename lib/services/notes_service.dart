@@ -17,15 +17,7 @@ class NoteService {
         final jsonData = json.decode(data.body);
         final notes = <NoteForListing>[];
         for (var item in jsonData) {
-          final note = NoteForListing(
-            noteID: item['noteID'],
-            noteTitle: item['noteTitle'],
-            createDateTime: DateTime.parse(item['createDateTime']),
-            latestEditDateTime: item['latestEditDateTime'] != null
-                ? DateTime.parse(item['latestEditDateTime'])
-                : null,
-          );
-          notes.add(note);
+          notes.add(NoteForListing.fromJson(item));
         }
         return APIResponse<List<NoteForListing>>(data: notes);
       }
