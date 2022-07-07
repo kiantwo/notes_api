@@ -61,6 +61,17 @@ class NoteList extends StatelessWidget {
               );
               return result;
             },
+            background: Container(
+              color: Colors.red,
+              padding: const EdgeInsets.only(left: 16),
+              child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
+              ),
+            ),
             child: ListTile(
               title: Text(
                 notes[index].noteTitle!,
