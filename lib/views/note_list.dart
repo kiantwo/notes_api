@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_api/views/note_modify.dart';
 
 import '../models/note_for_listing.dart';
 
@@ -35,7 +36,13 @@ class NoteList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('List of notes')),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => const NoteModify(),
+            ),
+          );
+        },
         child: const Icon(Icons.add),
       ),
       body: ListView.separated(
@@ -47,7 +54,8 @@ class NoteList extends StatelessWidget {
               notes[index].noteTitle!,
               style: TextStyle(color: Theme.of(context).primaryColor),
             ),
-            subtitle: Text('Last edited on ${formatDateTime(notes[index].latestEditDateTime!)}'),
+            subtitle: Text(
+                'Last edited on ${formatDateTime(notes[index].latestEditDateTime!)}'),
           );
         },
         itemCount: notes.length,
