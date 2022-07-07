@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 class NoteList extends StatelessWidget {
   const NoteList({Key? key}) : super(key: key);
 
+  final notes = [
+
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
