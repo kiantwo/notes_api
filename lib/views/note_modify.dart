@@ -82,7 +82,7 @@ class _NoteModifyState extends State<NoteModify> {
                             _isLoading = true;
                           });
                           // create not in api
-                          final note = NoteInsert(
+                          final note = NoteManipulation(
                             noteTitle: _titleController.text,
                             noteContent: _contentController.text,
                           );
