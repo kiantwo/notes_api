@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 class NoteModify extends StatelessWidget {
   const NoteModify({Key? key, this.noteID}) : super(key: key);
   final String? noteID;
+  bool get isEditing => noteID != null;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(noteID == null ? 'Create note' : 'Edit note')),
+      appBar: AppBar(title: Text(isEditing ? 'Edit note' : 'Create note')),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -26,6 +27,12 @@ class NoteModify extends StatelessWidget {
               child: ElevatedButton(
                 child: const Text('Submit'),
                 onPressed: () {
+                  if(isEditing) {
+                    // update note in api
+                  }
+                  else {
+                    // create not in api
+                  }
                   Navigator.of(context).pop();
                 },
               ),
